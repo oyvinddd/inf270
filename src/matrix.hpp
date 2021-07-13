@@ -5,8 +5,10 @@
 
 class Matrix {
     public:
-        Matrix();
         Matrix(int, int);
+
+        Matrix operator+(const Matrix& m);
+
         void print();
 
     private:

@@ -10,7 +10,7 @@ CC = g++
 
 OBJS = $(SRC)/main.o $(SRC)/matrix.o
 
-$(PROG): $(OBJS)
+build: $(OBJS)
 	mkdir -p $(OUT)
 	$(CC) -o $(OUT)/$(PROG) $(OBJS)
 

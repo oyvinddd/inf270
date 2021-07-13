@@ -9,11 +9,18 @@ Matrix::Matrix(int i, int j) {
     }
 }
 
+void Matrix operator+(const Matrix& m) {
+
+}
+
 void Matrix::print() {
     for(std::size_t i = 0; i < m_vect.size(); i++) {
         std::vector<double> temp = m_vect[i];
         for(std::size_t j = 0; j < temp.size(); j++) {
-            std::cout << temp[j]
+            std::cout << temp[j];
+            std::cout << " ";
         }
+        std::cout << "" << std::endl;
     }
 }
+
