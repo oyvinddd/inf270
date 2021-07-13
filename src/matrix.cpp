@@ -1,16 +1,13 @@
 #import "matrix.hpp"
 #import <iostream>
 
-Matrix::Matrix(int i, int j) {
-
-    for(std::size_t k = 0; k < i; k++) {
-        std::vector<double> temp(j, 0);
+Matrix::Matrix(std::size_t rows, std::size_t cols) {
+    m_rows = rows;
+    m_cols = cols;
+    for(std::size_t i = 0; i < rows; i++) {
+        std::vector<double> temp(cols, 0);
         m_vect.push_back(temp);
     }
-}
-
-void Matrix operator+(const Matrix& m) {
-
 }
 
 void Matrix::print() {
@@ -24,3 +21,10 @@ void Matrix::print() {
     }
 }
 
+Matrix Matrix::operator + (const Matrix& rhs) {
+    return Matrix(this->m_rows, rhs.m_cols);
+}
+
+Matrix Matrix::operator * (const Matrix& rhs) {
+    return Matrix(0, 0);
+}
