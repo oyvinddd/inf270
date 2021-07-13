@@ -4,7 +4,7 @@
 # Compiled Object files
 src/*.slo
 src/*.lo
-src/.o
+src/*.o
 src/*.obj
 
 # Precompiled Headers
@@ -33,3 +33,5 @@ src/*.obj
 
 # IntelliJ project files
 .idea
+
+out/
