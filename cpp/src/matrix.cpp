@@ -2,23 +2,24 @@
 #import <iostream>
 
 Matrix::Matrix(std::size_t rows, std::size_t cols) {
+    m_vector = std::vector<double>(rows * cols, 0);
     m_rows = rows;
     m_cols = cols;
-    for(std::size_t i = 0; i < rows; i++) {
-        std::vector<double> temp(cols, 0);
-        m_vect.push_back(temp);
-    }
 }
 
 void Matrix::print() {
-    for(std::size_t i = 0; i < m_vect.size(); i++) {
-        std::vector<double> temp = m_vect[i];
-        for(std::size_t j = 0; j < temp.size(); j++) {
-            std::cout << temp[j];
-            std::cout << " ";
+    for(int i = 0; i < this->m_vector.size(); i++) {
+        if(i > 0 && i % this->m_cols == 0) {
+            std::cout << std::endl;
         }
-        std::cout << "" << std::endl;
+        std::cout << this->m_vector[i] << " ";
     }
+    std::cout << std::endl;
+}
+
+double Matrix::value_at(std::size_t row, std::size_t col) {
+    // input is 1-indexed so subtract 1 from row and column before looking up the value
+    return this->m_vector[this->m_cols * (row - 1) + (col - 1)];
 }
 
 Matrix Matrix::operator + (const Matrix& rhs) {
@@ -27,4 +28,17 @@ Matrix Matrix::operator + (const Matrix& rhs) {
 
 Matrix Matrix::operator * (const Matrix& rhs) {
     return Matrix(0, 0);
+}
+
+bool Matrix::operator == (const Matrix& rhs) {
+    // return early if internal vectors are not the same size
+    if(this->m_vector.size() != rhs.m_vector.size()) {
+        return false;
+    }
+    for(int i = 0; i < this->m_vector.size(); i++) {
+        if(this->m_vector[i] != rhs.m_vector[i]) {
+            return false;
+        }
+    }
+    return true;
 }
