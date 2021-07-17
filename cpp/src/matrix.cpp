@@ -1,25 +1,53 @@
 #import "matrix.hpp"
 #import <iostream>
 
-Matrix::Matrix(std::size_t rows, std::size_t cols) {
-    m_vector = std::vector<double>(rows * cols, 0);
+using namespace std;
+
+Matrix::Matrix(size_t rows, size_t cols) {
+    m_vector = vector<double>(rows * cols, 0);
     m_rows = rows;
     m_cols = cols;
+}
+
+Matrix::Matrix(const Matrix& other) {
+    m_vector = vector<double>(other.m_vector);
+    m_rows = other.m_rows;
+    m_cols = other.m_cols;
 }
 
 void Matrix::print() {
     for(int i = 0; i < this->m_vector.size(); i++) {
         if(i > 0 && i % this->m_cols == 0) {
-            std::cout << std::endl;
+            cout << endl;
         }
-        std::cout << this->m_vector[i] << " ";
+        cout << this->m_vector[i] << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 
-double Matrix::value_at(std::size_t row, std::size_t col) {
+double Matrix::getValueAt(size_t row, size_t col) {
     // input is 1-indexed so subtract 1 from row and column before looking up the value
     return this->m_vector[this->m_cols * (row - 1) + (col - 1)];
+}
+
+void Matrix::setValueAt(double value, size_t row, size_t col) {
+    this->m_vector[this->m_cols * (row - 1) + (col - 1)] = value;
+}
+
+Matrix Matrix::multiply(double value) {
+    Matrix newMatrix(*this);
+    for(int i = 0; i < newMatrix.m_vector.size(); i++) {
+        newMatrix.m_vector[i] *= value;
+    }
+    return newMatrix;
+}
+
+size_t Matrix::getNoOfRows() {
+    return this->m_rows;
+}
+
+size_t Matrix::getNoOfCols() {
+    return this->m_cols;
 }
 
 Matrix Matrix::operator + (const Matrix& rhs) {

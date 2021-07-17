@@ -5,10 +5,15 @@
 
 class Matrix {
     public:
-        std::size_t m_rows, m_cols;
         Matrix(std::size_t, std::size_t);
+        Matrix(const Matrix& other); // copy constructor
 
-        double value_at(std::size_t row, std::size_t col);
+        double getValueAt(std::size_t row, std::size_t col);
+        void setValueAt(double value, std::size_t row, std::size_t col);
+        Matrix multiply(double value);
+        std::size_t getNoOfRows(void);
+        std::size_t getNoOfCols(void);
+
         void print();
 
         Matrix operator + (const Matrix& rhs);
@@ -17,6 +22,7 @@ class Matrix {
 
     private:
         std::vector<double> m_vector;
+        std::size_t m_rows, m_cols;
 };
 
 #endif
