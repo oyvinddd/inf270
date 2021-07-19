@@ -34,6 +34,14 @@ void Matrix::setValueAt(double value, size_t row, size_t col) {
     this->m_vector[this->m_cols * (row - 1) + (col - 1)] = value;
 }
 
+Matrix Matrix::identity(void) {
+    Matrix newMatrix(this->m_cols, this->m_cols);
+    for(int i = 0; i < newMatrix.m_cols; i++) {
+        newMatrix.setValueAt(1, i + 1, i + 1);
+    }
+    return newMatrix;
+}
+
 Matrix Matrix::multiply(double value) {
     Matrix newMatrix(*this);
     for(int i = 0; i < newMatrix.m_vector.size(); i++) {

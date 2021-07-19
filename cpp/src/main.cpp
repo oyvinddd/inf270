@@ -14,9 +14,12 @@ int main() {
     m4.print();
     m3.print();
 
+    Matrix m5 = m4.identity();
+
     bool isSame = m3 == m4;
 
     std::cout << isSame << std::endl;
+    m5.print();
 
     return 0;
 }
