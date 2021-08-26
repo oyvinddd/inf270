@@ -15,7 +15,11 @@ class Matrix {
 
         Matrix identity(void);
 
+        Matrix inverse(void);
+
         Matrix multiply(double value);
+
+        double determinant(void);
 
         std::size_t getNoOfRows(void);
 

@@ -42,6 +42,11 @@ Matrix Matrix::identity(void) {
     return newMatrix;
 }
 
+Matrix Matrix::inverse(void) {
+    // TODO: throw error if this is not a square matrix
+    return Matrix(0, 0);
+}
+
 Matrix Matrix::multiply(double value) {
     Matrix newMatrix(*this);
     for(int i = 0; i < newMatrix.m_vector.size(); i++) {
@@ -50,11 +55,15 @@ Matrix Matrix::multiply(double value) {
     return newMatrix;
 }
 
-size_t Matrix::getNoOfRows() {
+double Matrix::determinant(void) {
+    return -1;
+}
+
+size_t Matrix::getNoOfRows(void) {
     return this->m_rows;
 }
 
-size_t Matrix::getNoOfCols() {
+size_t Matrix::getNoOfCols(void) {
     return this->m_cols;
 }
 
@@ -63,6 +72,17 @@ Matrix Matrix::operator + (const Matrix& rhs) {
 }
 
 Matrix Matrix::operator * (const Matrix& rhs) {
+    try {
+        if(this->m_cols != rhs.m_rows) {
+            throw 99; // todo: throw specific error here
+        }
+        for(int i = 0; i < this->m_rows; i++) {
+
+        }
+    } catch(int x) {
+        return Matrix(0, 0);
+    }
+    // todo: fix this
     return Matrix(0, 0);
 }
 
