@@ -1,6 +1,10 @@
 #import "matrix.hpp"
 #import <iostream>
 
+void Increment(int& val) {
+    val++;
+}
+
 int main() {
     Matrix m1(2, 2);
     Matrix m2(2, 2);
@@ -20,6 +24,12 @@ int main() {
 
     std::cout << isSame << std::endl;
     m5.print();
+
+    int a = 10;
+    Increment(a);
+    printf("%d", a);
+
+    Increment(a);
 
     return 0;
 }
