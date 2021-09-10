@@ -1,0 +1,6 @@
+min 10u + 8v
+subject to
+2u + v >= 3
+u + 2v >= 2
+u >= 0
+v >= 0
