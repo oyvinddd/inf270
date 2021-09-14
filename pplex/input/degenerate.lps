@@ -1,0 +1,4 @@
+max y
+subject to
+-x + y <= 0
+x <= 2
