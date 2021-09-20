@@ -3,11 +3,6 @@
 #   PYTHON VERSION: 3.8.5   #
 #############################
 
-# Utility functions
-
-def display_lp(A, b, c, m, n):
-    for index, row in enumerate(A):
-        print('\t'.join(map(str, row)) + ' [ %.2f ]' % (b[index]))
 
 # 1.
 def transform(A, b, c, m, n):
@@ -19,22 +14,42 @@ def transform(A, b, c, m, n):
                 row.append(1)
             else:
                 row.append(0)
-    #n += m
+    # n += m
     return A, b, c, m, n
+
 
 # 2.
 def initial_tableau(A, b, c, m, n):
-    Alpha = []
-    for row_idx in range(m):
-        row = [b[m]]
+    alpha = []
+    for row_idx, row in enumerate(A):
+        new_row = [b[row_idx]]
+        alpha.append(new_row)
+        for col_idx in range(n):
+            new_row.append(row[col_idx] * -1)
+    x = [0] * n
+    y = [] # TODO: ...
+    z = [cc * xx for cc, xx in zip(c, x)]
+    return alpha, c, x, y, z
 
 
-    #for row_idx, row in enumerate(A):
-    #    # change the sign of all NBVs
-    #    [x * -1 for x in row]
-        # add intial values
-    #    row.insert(0, b[row_idx])
-    return Alpha, c, m, n
+def pivot_step(Alpha, c, x, y, i, k, l):
+    pass
+
+
+# Utility functions
+
+def display_lp(A, b, c, m, n):
+    for index, row in enumerate(A):
+        print('\t'.join(map(str, row)) + ' [ %.2f ]' % (b[index]))
+
+
+def display_tableau(A):
+    for row_idx, row in enumerate(A):
+        row_str = ''
+        for col in row:
+            row_str += '{:8.2f}'.format(col)
+        print(row_str)
+
 
 A = [[-1, 1], [1, 0], [0, 1]]
 
@@ -45,6 +60,8 @@ c = [1, 1]
 m, n = 3, 2
 
 A_new, b_new, c_new, m_new, n_new = transform(A, b, c, m, n)
-A_new2, c_new2, m_new2, n_new2 = initial_tableau(A_new, b_new, c_new, m_new, n_new)
+A_new2, _, _, _, _ = initial_tableau(A_new, b_new, c_new, m_new, n_new)
 
-display_lp(A_new2, b_new, c_new2, m_new2, n_new2)
+display_tableau(A_new2)
+
+# display_lp(A_new2, b_new, c_new2, m_new2, n_new2)
