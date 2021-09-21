@@ -20,27 +20,48 @@ def transform(A, b, c, m, n):
 
 # 2.
 def initial_tableau(A, b, c, m, n):
-    alpha = []
+    Alpha = []
     for row_idx, row in enumerate(A):
         new_row = [b[row_idx]]
-        alpha.append(new_row)
+        Alpha.append(new_row)
         for col_idx in range(n):
             new_row.append(row[col_idx] * -1)
     x = [0] * n
-    y = [] # TODO: ...
-    z = [cc * xx for cc, xx in zip(c, x)]
-    return alpha, c, x, y, z
+    y = []  # TODO: ...
+    z = 0
+    return Alpha, c, x, y, z
 
 
 def pivot_step(Alpha, c, x, y, i, k, l):
-    pass
+    # 1. find the optimal pivot row
+    j = optimal_pivot_row(Alpha, i)
+    # 2. swap NBV (right-hand side) with BV (left-hand side)
+    # 3.
 
 
 # Utility functions
 
-def display_lp(A, b, c, m, n):
-    for index, row in enumerate(A):
-        print('\t'.join(map(str, row)) + ' [ %.2f ]' % (b[index]))
+
+def optimal_pivot_col(c):
+    opt_value, opt_index = 0, -1
+    for index, value in enumerate(c):
+        if value > opt_value:
+            opt_value = value
+            opt_index = index
+    return opt_index
+
+
+def optimal_pivot_row(Alpha, pivot_col):
+    opt_value, opt_index = None, -1
+    # skip constant in the first column of A
+    pivot_col = pivot_col + 1
+    for index, row in enumerate(Alpha):
+        if row[pivot_col] < 0:
+            value = row[0] / abs(row[pivot_col])
+            if opt_value is None or opt_value > value:
+                opt_value = value
+                opt_index = index
+    return opt_index
 
 
 def display_tableau(A):
@@ -60,8 +81,9 @@ c = [1, 1]
 m, n = 3, 2
 
 A_new, b_new, c_new, m_new, n_new = transform(A, b, c, m, n)
-A_new2, _, _, _, _ = initial_tableau(A_new, b_new, c_new, m_new, n_new)
+A_new2, c_new2, x, y, z = initial_tableau(A_new, b_new, c_new, m_new, n_new)
+
+pivot_step(A, c_new2, x, y, 0, m, n)
 
 display_tableau(A_new2)
 
-# display_lp(A_new2, b_new, c_new2, m_new2, n_new2)
