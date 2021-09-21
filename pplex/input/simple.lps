@@ -1,0 +1,4 @@
+maximize -x1 - x2
+subject to
+x1 <= 1
+x2 <= 1

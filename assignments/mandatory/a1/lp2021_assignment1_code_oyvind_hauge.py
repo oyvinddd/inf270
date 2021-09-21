@@ -14,7 +14,6 @@ def transform(A, b, c, m, n):
                 row.append(1)
             else:
                 row.append(0)
-    # n += m
     return A, b, c, m, n
 
 
