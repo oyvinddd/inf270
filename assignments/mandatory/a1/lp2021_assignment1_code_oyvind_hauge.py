@@ -26,8 +26,16 @@ def initial_tableau(A, b, c, m, n):
         Alpha.append(new_row)
         for col_idx in range(n):
             new_row.append(row[col_idx] * -1)
-    x = [0] * n
-    y = []  # TODO: ...
+    # there are (n + m) variables in total
+    # now populate the vectors x and y
+    x, y = [], []
+    for i in range(m + n):
+        var_num = i + 1
+        if i < n:
+            x.append(var_num)
+        else:
+            y.append(var_num)
+    # objective value is initially set to 0
     z = 0
     return Alpha, c, x, y, z
 
@@ -64,12 +72,22 @@ def optimal_pivot_row(Alpha, pivot_col):
     return opt_index
 
 
-def display_tableau(A):
-    for row_idx, row in enumerate(A):
-        row_str = ''
-        for col in row:
-            row_str += '{:8.2f}'.format(col)
+def display_tableau(Alpha, c, x, y):
+    # print all constraints
+    for row_idx, row in enumerate(Alpha):
+        row_str = 'x{0} ='.format(y[row_idx])
+        for index, col in enumerate(row):
+            row_str += '{:8.1f}'.format(col)
+            if index > 0:
+                row_str += 'x{0}'.format(x[index - 1])
         print(row_str)
+    # print horizontal separator
+    print('-' * 32)
+    # print objective function
+    row_str = '{0: <12}'.format("S  =")
+    for param, var in zip(c, x):
+        row_str += '{:8.1f}x{var}'.format(param, var=var)
+    print(row_str)
 
 
 A = [[-1, 1], [1, 0], [0, 1]]
@@ -80,10 +98,13 @@ c = [1, 1]
 
 m, n = 3, 2
 
+# LP in equational form
 A_new, b_new, c_new, m_new, n_new = transform(A, b, c, m, n)
+
+# initial simplex tableau
 A_new2, c_new2, x, y, z = initial_tableau(A_new, b_new, c_new, m_new, n_new)
 
-pivot_step(A, c_new2, x, y, 0, m, n)
+#pivot_step(A, c_new2, x, y, 0, m, n)
 
-display_tableau(A_new2)
+display_tableau(A_new2, c, x, y)
 
