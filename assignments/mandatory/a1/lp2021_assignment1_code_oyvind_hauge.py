@@ -4,7 +4,7 @@
 #############################
 
 
-# 1.
+# assignment 1.1
 def transform(A, b, c, m, n):
     # add slack vars to the end of each row
     # and increase n with # of slack vars
@@ -17,7 +17,7 @@ def transform(A, b, c, m, n):
     return A, b, c, m, n
 
 
-# 2.
+# assignment 1.2
 def initial_tableau(A, b, c, m, n):
     # populate matrix Alpha with NBVs
     Alpha = []
@@ -40,7 +40,7 @@ def initial_tableau(A, b, c, m, n):
     return Alpha, c, x, y, z
 
 
-# 3.
+# assignment 1.3
 def pivot_step(Alpha, c, x, y, i, l, k):
     # we'll increment pivot column index by one
     # because we only want to look at the variables
@@ -60,18 +60,18 @@ def pivot_step(Alpha, c, x, y, i, l, k):
         if row_index == j or coeff == 0:
             continue
         for col_index in range(k + 1):
+            updated_coeff = coeff * Alpha[j][col_index]
             if col_index == i:
-                Alpha[row_index][col_index] = coeff * Alpha[j][col_index]
+                Alpha[row_index][col_index] = updated_coeff
             else:
-                Alpha[row_index][col_index] += coeff * Alpha[j][col_index]
-        # set coefficient to the leaving variable to -1 for all rows
-        #Alpha[row_index][i] = -1    # FIXME: refactor these two
-    #Alpha[j][i] = -1                # FIXME: ...
+                Alpha[row_index][col_index] += updated_coeff
     # update objective function
     coeff = c[i - 1]
     for col_index in range(k):
-        c[col_index] += coeff * Alpha[j][col_index + 1]
-    c[i - 1] = -1
+        if col_index == i - 1:
+            c[col_index] = coeff * Alpha[j][col_index + 1]
+        else:
+            c[col_index] += coeff * Alpha[j][col_index + 1]
     # interchange new BV with new NBV
     x[i - 1], y[j] = y[j], x[i - 1]
     return Alpha, c, x, y
