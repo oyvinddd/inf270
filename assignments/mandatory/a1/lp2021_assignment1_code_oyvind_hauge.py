@@ -42,11 +42,15 @@ def initial_tableau(A, b, c, m, n):
 
 # 3.
 def pivot_step(Alpha, c, x, y, i, k, l):
+    # we'll increment pivot column index by one
+    # because we only want to look the variables
+    i += 1  # FIXME: maybe increase x vector by one instead (to hold parameter as well as vars)
     # find the optimal pivot row
     j = optimal_pivot_row(Alpha, i)
-    bv, nbv = y[j], x[i]
+    bv, nbv = y[j], x[i]    # FIXME: needed?
+    # divide values in pivot row with the entering variable
     for col in Alpha[j]:
-        col / abs(Alpha[j][i])
+        col /= abs(Alpha[j][i])
     # update all rows by adding values from pivot row
     for index, row in enumerate(Alpha):
         # skip updating the actual pivot row
@@ -56,23 +60,12 @@ def pivot_step(Alpha, c, x, y, i, k, l):
             for col in row:
                 col += (Alpha[j][index] * Alpha[j][i])
         Alpha[j][i] = -1
-    x[i], y[j] = y[j], x[i]
+    # interchange new BV with new NBV
+    x[i - 1], y[j] = y[j], x[i - 1]
     return Alpha, c, x, y
 
 
 # Utility functions
-
-
-def optimal_pivot_col(c):
-    opt_value, opt_index = 0, -1
-    for index, value in enumerate(c):
-        if value > opt_value:
-            opt_value = value
-            opt_index = index
-    return opt_index
-
-
-#def update_row(Alpha, row):
 
 
 def update_obj_function(row, i):
@@ -81,8 +74,6 @@ def update_obj_function(row, i):
 
 def optimal_pivot_row(Alpha, pivot_col):
     opt_value, opt_index = None, -1
-    # skip constant in the first column of A
-    pivot_col = pivot_col + 1
     for index, row in enumerate(Alpha):
         if row[pivot_col] < 0:
             value = row[0] / abs(row[pivot_col])
@@ -107,7 +98,7 @@ def display_tableau(Alpha, c, x, y, z):
     row_str = 'ζ  ={0:8.1f}'.format(z)
     for param, var in zip(c, x):
         row_str += '{:8.1f}x{var}'.format(param, var=var)
-    print(row_str)
+    print(row_str + '\n')
 
 
 A = [[-1, 1], [1, 0], [0, 1]]
@@ -128,9 +119,9 @@ A_new2, c_new2, x, y, z = initial_tableau(A_new, b_new, c_new, m_new, n_new)
 display_tableau(A_new2, c, x, y, z)
 
 # do first pivot step
-A_new3, c_new3, x_new, y_new = pivot_step(A, c_new2, x, y, 0, m, n)
+A_new3, c_new3, x_new, y_new = pivot_step(A_new2, c_new2, x, y, 0, m, n)
 
 # print tableau after first pivot step
-display_tableau(A_new3, c_new3, x_new, y_new)
+display_tableau(A_new3, c_new3, x_new, y_new, 0)
 
 
