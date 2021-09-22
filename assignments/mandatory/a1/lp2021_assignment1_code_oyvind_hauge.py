@@ -84,7 +84,19 @@ def pivot_step(Alpha, c, x, y, i, l, k):
 
 # assignment 1.7
 def simplex_method(A, b, c, m, n):
-    pass
+    # transform LP from standard to equational form
+    A_std, b_std, c_std, m_std, n_std = transform(A, b, c, m, n)
+    # create the initial simplex tableau
+    A, c, x, y, z = initial_tableau(A_std, b_std, c_std, m_std, n_std)
+    # execute pivot steps until one of three conditions are met:
+    #   1. unbounded/no optimal solution
+    #   2. algorithm interrupted due to cycling
+    #   3. an optimal solution was found
+    A_new3, c_new3, x_new, y_new, unbounded, optimum_reached = pivot_step(A, c, x, y, 1, m, n)
+    if unbounded:
+        print('The problem is unbounded/there is no optimal solution.')
+    display_tableau(A_new3, c_new3, x_new, y_new, 0)
+
 
 # Utility functions
 
@@ -133,7 +145,11 @@ def display_tableau(Alpha, c, x, y, z):
     print(row_str + '\n')
 
 
-A = [[-1, 1], [1, 0], [0, 1]]
+A = [
+    [-1, 1],
+    [1, 0],
+    [0, 1]
+]
 
 b = [1, 3, 2]
 
@@ -141,19 +157,8 @@ c = [1, 1]
 
 m, n = 3, 2
 
-# LP in equational form
-A_new, b_new, c_new, m_new, n_new = transform(A, b, c, m, n)
+# run the simplex method on the above LP
+simplex_method(A, b, c, m, n)
 
-# initial simplex tableau
-A_new2, c_new2, x, y, z = initial_tableau(A_new, b_new, c_new, m_new, n_new)
-
-# print initial tableau
-display_tableau(A_new2, c, x, y, z)
-
-# do first pivot step
-A_new3, c_new3, x_new, y_new, optimum_reached = pivot_step(A_new2, c_new2, x, y, 1, m, n)
-
-# print tableau after first pivot step
-display_tableau(A_new3, c_new3, x_new, y_new, 0)
 
 
