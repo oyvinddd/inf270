@@ -60,10 +60,13 @@ def pivot_step(Alpha, c, x, y, i, l, k):
         if row_index == j or coeff == 0:
             continue
         for col_index in range(k + 1):
-            Alpha[row_index][col_index] += coeff * Alpha[j][col_index]
+            if col_index == i:
+                Alpha[row_index][col_index] = coeff * Alpha[j][col_index]
+            else:
+                Alpha[row_index][col_index] += coeff * Alpha[j][col_index]
         # set coefficient to the leaving variable to -1 for all rows
-        Alpha[row_index][i] = -1    # FIXME: refactor these two
-    Alpha[j][i] = -1                # FIXME: ...
+        #Alpha[row_index][i] = -1    # FIXME: refactor these two
+    #Alpha[j][i] = -1                # FIXME: ...
     # update objective function
     coeff = c[i - 1]
     for col_index in range(k):
