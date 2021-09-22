@@ -53,14 +53,18 @@ def pivot_step(Alpha, c, x, y, i, l, k):
     for col_index in range(k + 1):
         Alpha[j][col_index] /= abs(Alpha[j][i])
     # update all rows by adding values from pivot row
-    for index, row in enumerate(Alpha):
-        # skip updating the actual pivot row and also
-        # skipping rows that has no value for the newly
-        # selected bv
-        if index is not j and row[i] != 0:
-            for col in row:
-                col += (Alpha[j][index] * Alpha[j][i])
-        Alpha[j][i] = -1
+    for row_index in range(l):
+        coeff = Alpha[row_index][i]
+        # we don't want to update pivot row, so skip it.
+        # Also, if value doesn't exist in the current row,
+        # we want to skip it.
+        if row_index == j or coeff == 0:
+            continue
+        for col_index in range(k + 1):
+            Alpha[row_index][col_index] += coeff * Alpha[j][col_index]
+        # set coefficient to the leaving variable to -1 for all rows
+        Alpha[row_index][i] = -1    # FIXME: refactor these two
+    Alpha[j][i] = -1    # FIXME: ...
     # interchange new BV with new NBV
     x[i - 1], y[j] = y[j], x[i - 1]
     return Alpha, c, x, y
