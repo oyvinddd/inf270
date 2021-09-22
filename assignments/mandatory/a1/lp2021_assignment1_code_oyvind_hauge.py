@@ -42,11 +42,16 @@ def initial_tableau(A, b, c, m, n):
 
 # assignment 1.3
 def pivot_step(Alpha, c, x, y, i, l, k):
+    # assignment 1.6
+    if optimum_reached(c):
+        return Alpha, c, x, y, True
     # we'll increment pivot column index by one
     # because we only want to look at the variables
     i += 1  # FIXME: maybe increase x vector by one instead (to hold parameter as well as vars)
-    # find the optimal pivot row
-    j = optimal_pivot_row(Alpha, i)
+    # assignment 1.5 (check for existence of an optimal pivot row)
+    j, unbounded = optimal_pivot_row(Alpha, i)
+    if unbounded:
+        return Alpha, c, x, y, True, False
     # divide values in pivot row with the
     # coefficient of the entering variable
     for col_index in range(k + 1):
@@ -74,25 +79,37 @@ def pivot_step(Alpha, c, x, y, i, l, k):
             c[col_index] += coeff * Alpha[j][col_index + 1]
     # interchange new BV with new NBV
     x[i - 1], y[j] = y[j], x[i - 1]
-    return Alpha, c, x, y
+    return Alpha, c, x, y, False, False
 
+
+# assignment 1.7
+def simplex_method(A, b, c, m, n):
+    pass
 
 # Utility functions
 
 
-def update_obj_function(row, i):
-    pass
-
-
 def optimal_pivot_row(Alpha, pivot_col):
-    opt_value, opt_index = None, -1
-    for index, row in enumerate(Alpha):
+    unbounded = True
+    opt_value, pivot_row = None, None
+    for row_index, row in enumerate(Alpha):
         if row[pivot_col] < 0:
-            value = row[0] / abs(row[pivot_col])
-            if opt_value is None or opt_value > value:
-                opt_value = value
-                opt_index = index
-    return opt_index
+            # find the strictest constraint for the given variable
+            current_value = row[0] / abs(row[pivot_col])
+            if opt_value is None or opt_value > current_value:
+                unbounded = False
+                opt_value = current_value
+                pivot_row = row_index
+    return pivot_row, unbounded
+
+
+# checks if the optimum value for a
+# given LP has been reached.
+def optimum_reached(c):
+    for coefficient in c:
+        if coefficient > 0:
+            return False
+    return True
 
 
 def display_tableau(Alpha, c, x, y, z):
@@ -134,7 +151,7 @@ A_new2, c_new2, x, y, z = initial_tableau(A_new, b_new, c_new, m_new, n_new)
 display_tableau(A_new2, c, x, y, z)
 
 # do first pivot step
-A_new3, c_new3, x_new, y_new = pivot_step(A_new2, c_new2, x, y, 1, m, n)
+A_new3, c_new3, x_new, y_new, optimum_reached = pivot_step(A_new2, c_new2, x, y, 1, m, n)
 
 # print tableau after first pivot step
 display_tableau(A_new3, c_new3, x_new, y_new, 0)
