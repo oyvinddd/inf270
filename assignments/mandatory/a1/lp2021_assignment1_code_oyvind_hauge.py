@@ -47,7 +47,6 @@ def pivot_step(Alpha, c, x, y, i, l, k):
     i += 1  # FIXME: maybe increase x vector by one instead (to hold parameter as well as vars)
     # find the optimal pivot row
     j = optimal_pivot_row(Alpha, i)
-    bv, nbv = y[j], x[i]    # FIXME: needed?
     # divide values in pivot row with the
     # coefficient of the entering variable
     for col_index in range(k + 1):
@@ -66,8 +65,9 @@ def pivot_step(Alpha, c, x, y, i, l, k):
         Alpha[row_index][i] = -1    # FIXME: refactor these two
     Alpha[j][i] = -1                # FIXME: ...
     # update objective function
+    coeff = c[i - 1]
     for col_index in range(k):
-        c[col_index] += c[i] * Alpha[j][col_index + 1]
+        c[col_index] += coeff * Alpha[j][col_index + 1]
     c[i - 1] = -1
     # interchange new BV with new NBV
     x[i - 1], y[j] = y[j], x[i - 1]
@@ -131,7 +131,7 @@ A_new2, c_new2, x, y, z = initial_tableau(A_new, b_new, c_new, m_new, n_new)
 display_tableau(A_new2, c, x, y, z)
 
 # do first pivot step
-A_new3, c_new3, x_new, y_new = pivot_step(A_new2, c_new2, x, y, 0, m, n)
+A_new3, c_new3, x_new, y_new = pivot_step(A_new2, c_new2, x, y, 1, m, n)
 
 # print tableau after first pivot step
 display_tableau(A_new3, c_new3, x_new, y_new, 0)
