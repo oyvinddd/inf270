@@ -42,9 +42,9 @@ def initial_tableau(A, b, c, m, n):
 
 # assignment 1.3
 def pivot_step(Alpha, c, x, y, i, l, k):
-    # assignment 1.6
-    if optimum_reached(c):
-        return Alpha, c, x, y, True
+    # assignment 1.6 (exit early if optimum was reached)
+    if not any(coefficient > 0 for coefficient in c):
+        return Alpha, c, x, y, False, True
     # we'll increment pivot column index by one
     # because we only want to look at the variables
     i += 1  # FIXME: maybe increase x vector by one instead (to hold parameter as well as vars)
@@ -95,6 +95,8 @@ def simplex_method(A, b, c, m, n):
     A_new3, c_new3, x_new, y_new, unbounded, optimum_reached = pivot_step(A, c, x, y, 1, m, n)
     if unbounded:
         print('The problem is unbounded/there is no optimal solution.')
+    if optimum_reached:
+        print('Found an optimal solution:')     # FIXME: print vector as well
     display_tableau(A_new3, c_new3, x_new, y_new, 0)
 
 
@@ -113,15 +115,6 @@ def optimal_pivot_row(Alpha, pivot_col):
                 opt_value = current_value
                 pivot_row = row_index
     return pivot_row, unbounded
-
-
-# checks if the optimum value for a
-# given LP has been reached.
-def optimum_reached(c):
-    for coefficient in c:
-        if coefficient > 0:
-            return False
-    return True
 
 
 def display_tableau(Alpha, c, x, y, z):
@@ -153,12 +146,9 @@ A = [
 
 b = [1, 3, 2]
 
-c = [1, 1]
+c = [-1, 0.1]
 
 m, n = 3, 2
 
 # run the simplex method on the above LP
 simplex_method(A, b, c, m, n)
-
-
-
