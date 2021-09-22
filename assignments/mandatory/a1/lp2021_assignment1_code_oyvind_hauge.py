@@ -64,7 +64,11 @@ def pivot_step(Alpha, c, x, y, i, l, k):
             Alpha[row_index][col_index] += coeff * Alpha[j][col_index]
         # set coefficient to the leaving variable to -1 for all rows
         Alpha[row_index][i] = -1    # FIXME: refactor these two
-    Alpha[j][i] = -1    # FIXME: ...
+    Alpha[j][i] = -1                # FIXME: ...
+    # update objective function
+    for col_index in range(k):
+        c[col_index] += c[i] * Alpha[j][col_index + 1]
+    c[i - 1] = -1
     # interchange new BV with new NBV
     x[i - 1], y[j] = y[j], x[i - 1]
     return Alpha, c, x, y
