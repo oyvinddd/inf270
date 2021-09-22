@@ -1,4 +1,5 @@
-maximize -x1 - x2
+maximize x1 + x2
 subject to
-x1 <= 1
-x2 <= 1
+-x1 + x2 <= 1
+x1 <= 3
+x2 <= 2

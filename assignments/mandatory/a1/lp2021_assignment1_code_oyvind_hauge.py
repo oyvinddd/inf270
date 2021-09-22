@@ -19,6 +19,7 @@ def transform(A, b, c, m, n):
 
 # 2.
 def initial_tableau(A, b, c, m, n):
+    # populate matrix Alpha with NBVs
     Alpha = []
     for row_idx, row in enumerate(A):
         new_row = [b[row_idx]]
@@ -39,11 +40,24 @@ def initial_tableau(A, b, c, m, n):
     return Alpha, c, x, y, z
 
 
+# 3.
 def pivot_step(Alpha, c, x, y, i, k, l):
-    # 1. find the optimal pivot row
+    # find the optimal pivot row
     j = optimal_pivot_row(Alpha, i)
-    # 2. swap NBV (right-hand side) with BV (left-hand side)
-    # 3.
+    bv, nbv = y[j], x[i]
+    for col in Alpha[j]:
+        col / abs(Alpha[j][i])
+    # update all rows by adding values from pivot row
+    for index, row in enumerate(Alpha):
+        # skip updating the actual pivot row
+        # and also skipping rows that has no
+        # value for the newly selected bv
+        if index is not j and row[i] != 0:
+            for col in row:
+                col += (Alpha[j][index] * Alpha[j][i])
+        Alpha[j][i] = -1
+    x[i], y[j] = y[j], x[i]
+    return Alpha, c, x, y
 
 
 # Utility functions
@@ -56,6 +70,13 @@ def optimal_pivot_col(c):
             opt_value = value
             opt_index = index
     return opt_index
+
+
+#def update_row(Alpha, row):
+
+
+def update_obj_function(row, i):
+    pass
 
 
 def optimal_pivot_row(Alpha, pivot_col):
@@ -71,7 +92,7 @@ def optimal_pivot_row(Alpha, pivot_col):
     return opt_index
 
 
-def display_tableau(Alpha, c, x, y):
+def display_tableau(Alpha, c, x, y, z):
     # print all constraints
     for row_idx, row in enumerate(Alpha):
         row_str = 'x{0} ='.format(y[row_idx])
@@ -83,7 +104,7 @@ def display_tableau(Alpha, c, x, y):
     # print horizontal separator
     print('-' * 32)
     # print objective function
-    row_str = '{0: <12}'.format("S  =")
+    row_str = 'ζ  ={0:8.1f}'.format(z)
     for param, var in zip(c, x):
         row_str += '{:8.1f}x{var}'.format(param, var=var)
     print(row_str)
@@ -103,7 +124,13 @@ A_new, b_new, c_new, m_new, n_new = transform(A, b, c, m, n)
 # initial simplex tableau
 A_new2, c_new2, x, y, z = initial_tableau(A_new, b_new, c_new, m_new, n_new)
 
-#pivot_step(A, c_new2, x, y, 0, m, n)
+# print initial tableau
+display_tableau(A_new2, c, x, y, z)
 
-display_tableau(A_new2, c, x, y)
+# do first pivot step
+A_new3, c_new3, x_new, y_new = pivot_step(A, c_new2, x, y, 0, m, n)
+
+# print tableau after first pivot step
+display_tableau(A_new3, c_new3, x_new, y_new)
+
 
