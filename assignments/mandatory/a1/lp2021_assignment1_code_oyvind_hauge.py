@@ -41,21 +41,22 @@ def initial_tableau(A, b, c, m, n):
 
 
 # 3.
-def pivot_step(Alpha, c, x, y, i, k, l):
+def pivot_step(Alpha, c, x, y, i, l, k):
     # we'll increment pivot column index by one
-    # because we only want to look the variables
+    # because we only want to look at the variables
     i += 1  # FIXME: maybe increase x vector by one instead (to hold parameter as well as vars)
     # find the optimal pivot row
     j = optimal_pivot_row(Alpha, i)
     bv, nbv = y[j], x[i]    # FIXME: needed?
-    # divide values in pivot row with the entering variable
-    for col in Alpha[j]:
-        col /= abs(Alpha[j][i])
+    # divide values in pivot row with the
+    # coefficient of the entering variable
+    for col_index in range(k + 1):
+        Alpha[j][col_index] /= abs(Alpha[j][i])
     # update all rows by adding values from pivot row
     for index, row in enumerate(Alpha):
-        # skip updating the actual pivot row
-        # and also skipping rows that has no
-        # value for the newly selected bv
+        # skip updating the actual pivot row and also
+        # skipping rows that has no value for the newly
+        # selected bv
         if index is not j and row[i] != 0:
             for col in row:
                 col += (Alpha[j][index] * Alpha[j][i])
@@ -88,8 +89,11 @@ def display_tableau(Alpha, c, x, y, z):
     for row_idx, row in enumerate(Alpha):
         row_str = 'x{0} ='.format(y[row_idx])
         for index, col in enumerate(row):
-            row_str += '{:8.1f}'.format(col)
-            if index > 0:
+            if index > 0 and col == 0:
+                row_str += '{0:<10}'.format('')
+            else:
+                row_str += '{:8.1f}'.format(col)
+            if index > 0 and col != 0:
                 row_str += 'x{0}'.format(x[index - 1])
         print(row_str)
     # print horizontal separator
