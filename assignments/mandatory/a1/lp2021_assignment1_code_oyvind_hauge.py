@@ -46,7 +46,7 @@ def pivot_step(Alpha, c, x, y, i, l, k):
     # assignment 1.6 (exit early if optimum was reached)
     if not any(coefficient > 0 for coefficient in c[1:]):
         return Alpha, c, x, y, False, True
-    # assignment 1.5 (check for existence of an optimal pivot row)
+    # assignment 1.4 & 1.5 (checking for degeneracy/unboundedness)
     j, unbounded = optimal_pivot_row(Alpha, i)
     if unbounded:
         return Alpha, c, x, y, True, False
@@ -82,6 +82,8 @@ def pivot_step(Alpha, c, x, y, i, l, k):
 
 # assignment 1.7
 def simplex_method(A, b, c, m, n):
+    # maximum # of pivot steps for SM
+    max_pivot_steps, step_count = (m + n) / m, 0
     # transform LP from standard to equational form
     A_std, b_std, c_std, m_std, n_std = transform(A, b, c, m, n)
     # create the initial simplex tableau
@@ -92,12 +94,14 @@ def simplex_method(A, b, c, m, n):
     #   3. an optimal solution was found
     display_tableau(A, c, x, y)
     while True:
+        # keep track of how many steps we have taken
+        step_count += 1
         i = pick_pivot_column(c)
         A, c, x, y, unbounded, optimum_reached = pivot_step(A, c, x, y, i, m, n)
         if unbounded:
             print('The problem is unbounded/there is no optimal solution.')
             break
-        if False:
+        if step_count > max_pivot_steps:
             print('Algorithm interrupted due to cycling.')
             break
         if optimum_reached:
@@ -134,7 +138,6 @@ def optimal_pivot_row(Alpha, pivot_col):
     # our last resort is to check if we found a degenerate
     # row that performs a degenerate pivot step.
     if pivot_row is None and degenerate_row is not None:
-        print("Using degenerate row %s as pivot" % str(degenerate_row))
         pivot_row = degenerate_row
         unbounded = False
     return pivot_row, unbounded
