@@ -1,7 +1,7 @@
-#############################
-#   NAME: ØYVIND HAUGE      #
-#   PYTHON VERSION: 3.8.5   #
-#############################
+###############################
+##   NAME: ØYVIND HAUGE      ##
+##   PYTHON VERSION: 3.8.5   ##
+###############################
 
 
 # assignment 1.1
@@ -46,9 +46,6 @@ def pivot_step(Alpha, c, x, y, i, l, k):
     # assignment 1.6 (exit early if optimum was reached)
     if not any(coefficient > 0 for coefficient in c[1:]):
         return Alpha, c, x, y, False, True
-    # we'll increment pivot column index by one because we only
-    # want to look at the variables and not the coefficients
-    i += 1
     # assignment 1.5 (check for existence of an optimal pivot row)
     j, unbounded = optimal_pivot_row(Alpha, i)
     if unbounded:
@@ -93,36 +90,66 @@ def simplex_method(A, b, c, m, n):
     #   1. unbounded/no optimal solution
     #   2. algorithm interrupted due to cycling
     #   3. an optimal solution was found
+    display_tableau(A, c, x, y)
     while True:
-        A_new3, c_new3, x_new, y_new, unbounded, optimum_reached = pivot_step(A, c, x, y, 1, m, n)
+        i = pick_pivot_column(c)
+        A, c, x, y, unbounded, optimum_reached = pivot_step(A, c, x, y, i, m, n)
         if unbounded:
             print('The problem is unbounded/there is no optimal solution.')
             break
-        if optimum_reached:
-            print('Found an optimal solution:')     # FIXME: print vector as well
+        if False:
+            print('Algorithm interrupted due to cycling.')
             break
-        display_tableau(A_new3, c_new3, x_new, y_new, 0)
-        break   # TODO: remove before submit
+        if optimum_reached:
+            print('Found an optimal solution: ' + str(solution_vector(A, x, y)))
+            break
+        display_tableau(A, c, x, y)
 
 
 # Utility functions
 
+def pick_pivot_column(c):
+    for column_index, coefficient in enumerate(c):
+        if column_index > 0 and coefficient > 0:
+            return column_index
+    return None
+
 
 def optimal_pivot_row(Alpha, pivot_col):
-    unbounded = True
+    unbounded, degenerate_row = True, None
     opt_value, pivot_row = None, None
     for row_index, row in enumerate(Alpha):
         if row[pivot_col] < 0:
             # find the strictest constraint for the given variable
             current_value = row[0] / abs(row[pivot_col])
-            if opt_value is None or opt_value > current_value:
-                unbounded = False
+            # if the current value is 0, we have a degenerate pivot row
+            # we should store it for later in case we don't find any better rows
+            if current_value == 0:
+                degenerate_row = row_index
+            elif opt_value is None or opt_value > current_value:
                 opt_value = current_value
                 pivot_row = row_index
+                unbounded = False
+    # if we didn't find any good candidates for a pivot row
+    # our last resort is to check if we found a degenerate
+    # row that performs a degenerate pivot step.
+    if pivot_row is None and degenerate_row is not None:
+        print("Using degenerate row %s as pivot" % str(degenerate_row))
+        pivot_row = degenerate_row
+        unbounded = False
     return pivot_row, unbounded
 
 
-def display_tableau(Alpha, c, x, y, z):
+def solution_vector(Alpha, x, y):
+    d = {}
+    for nbv in x:
+        d[nbv - 1] = 0
+    for row, bv in enumerate(y):
+        d[bv - 1] = Alpha[row][0]
+    return [d[key] for key in sorted(d.keys())]
+
+
+def display_tableau(Alpha, c, x, y):
     # print all constraints
     for row_idx, row in enumerate(Alpha):
         row_str = 'x{0} ='.format(y[row_idx])
@@ -142,23 +169,35 @@ def display_tableau(Alpha, c, x, y, z):
         if index == 0:
             row_str += '{:8.1f}'.format(value)
         else:
-            row_str += '{:8.1f}x{var}'.format(value, var=x[index - 1])
+            if value == 0:
+                row_str += '{0:<10}'.format('')
+            else:
+                row_str += '{:8.1f}x{var}'.format(value, var=x[index - 1])
     print(row_str + '\n')
 
-
+'''
 # feasible problem
 A = [[-1, 1], [1, 0], [0, 1]]
 b = [1, 3, 2]
 c = [1, 1]
 m, n = 3, 2
+'''
 
 '''
-# unbounded problemr
+# unbounded problem
 A = [[1, -1], [-1, 1]]
 b = [1, 2]
 c = [1]
 m, n = 2, 2
 '''
+
+
+# requires degenerate step
+A = [[-1, 1], [1, 0]]
+b = [0, 2]
+c = [0, 1]
+m, n = 2, 2
+
 
 # run the simplex method on the above LP
 simplex_method(A, b, c, m, n)
