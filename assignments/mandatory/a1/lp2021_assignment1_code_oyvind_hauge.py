@@ -83,7 +83,7 @@ def pivot_step(Alpha, c, x, y, i, l, k):
 # assignment 1.7
 def simplex_method(A, b, c, m, n):
     # maximum # of pivot steps for SM
-    max_pivot_steps, step_count = (m + n) / m, 0
+    max_pivot_steps, step_count = (m + n) / m, 0    # FIXME: this is not correct (premature exit)
     # transform LP from standard to equational form
     A_std, b_std, c_std, m_std, n_std = transform(A, b, c, m, n)
     # create the initial simplex tableau
@@ -94,8 +94,6 @@ def simplex_method(A, b, c, m, n):
     #   3. an optimal solution was found
     display_tableau(A, c, x, y)
     while True:
-        # keep track of how many steps we have taken
-        step_count += 1
         i = pick_pivot_column(c)
         A, c, x, y, unbounded, optimum_reached = pivot_step(A, c, x, y, i, m, n)
         if unbounded:
@@ -108,6 +106,8 @@ def simplex_method(A, b, c, m, n):
             print('Found an optimal solution: ' + str(solution_vector(A, x, y)))
             break
         display_tableau(A, c, x, y)
+        # keep track of how many steps we have taken
+        step_count += 1
 
 
 # Utility functions
@@ -178,13 +178,12 @@ def display_tableau(Alpha, c, x, y):
                 row_str += '{:8.1f}x{var}'.format(value, var=x[index - 1])
     print(row_str + '\n')
 
-'''
+
 # feasible problem
 A = [[-1, 1], [1, 0], [0, 1]]
 b = [1, 3, 2]
 c = [1, 1]
 m, n = 3, 2
-'''
 
 '''
 # unbounded problem
@@ -194,13 +193,13 @@ c = [1]
 m, n = 2, 2
 '''
 
-
+'''
 # requires degenerate step
 A = [[-1, 1], [1, 0]]
 b = [0, 2]
 c = [0, 1]
 m, n = 2, 2
-
+'''
 
 # run the simplex method on the above LP
 simplex_method(A, b, c, m, n)

@@ -1,0 +1,4 @@
+max -5y1 -2y2 -4y3
+subject to
+-4y1 -y2 <= -1
+-y1 -y3 <= 0
