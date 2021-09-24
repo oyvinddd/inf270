@@ -1,0 +1,3 @@
+max -x -y
+subject to
+y <= 2
