@@ -192,10 +192,18 @@ def display_tableau(Alpha, c, x, y):
     print(row_str + '\n')
 
 
+'''
 # feasible problem
 A = [[-1, 1], [1, 0], [0, 1]]
 b = [1, 3, 2]
 c = [1, 1]
+m, n = 3, 2
+'''
+
+# bands & coils problem (feasible)
+A = [[1/200, 1/140], [1, 0], [0, 1]]
+b = [40, 6000, 4000]
+c = [25, 30]
 m, n = 3, 2
 
 '''
