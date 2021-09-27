@@ -83,7 +83,7 @@ def pivot_step(Alpha, c, x, y, i, l, k):
 # assignment 1.7
 def simplex_method(A, b, c, m, n):
     # maximum # of pivot steps for SM
-    max_pivot_steps, step_count = (m + n) / m, 0    # FIXME: this is not correct (premature exit)
+    max_pivot_steps, step_count = calculate_max_steps(m, n), 0
     # transform LP from standard to equational form
     A_std, b_std, c_std, m_std, n_std = transform(A, b, c, m, n)
     # create the initial simplex tableau
@@ -92,8 +92,8 @@ def simplex_method(A, b, c, m, n):
     #   1. unbounded/no optimal solution
     #   2. algorithm interrupted due to cycling
     #   3. an optimal solution was found
-    display_tableau(A, c, x, y)
     while True:
+        display_tableau(A, c, x, y)
         i = pick_pivot_column(c)
         A, c, x, y, unbounded, optimum_reached = pivot_step(A, c, x, y, i, m, n)
         if unbounded:
@@ -103,14 +103,14 @@ def simplex_method(A, b, c, m, n):
             print('Algorithm interrupted due to cycling.')
             break
         if optimum_reached:
-            print('Found an optimal solution: ' + str(solution_vector(A, x, y)))
+            print('Found an optimal solution: {0} = {1}'.format(solution_vector(A, x, y), c[0]))
             break
-        display_tableau(A, c, x, y)
         # keep track of how many steps we have taken
         step_count += 1
 
 
 # Utility functions
+
 
 def pick_pivot_column(c):
     for column_index, coefficient in enumerate(c):
@@ -152,6 +152,19 @@ def solution_vector(Alpha, x, y):
     return [d[key] for key in sorted(d.keys())]
 
 
+def calculate_max_steps(m, n):
+    # the number of basic feasible solutions puts an upper
+    # bound on how many iterations the SM can have for a given LP
+    return factorial(n + m) / (factorial(n) * factorial(m))
+
+
+def factorial(n):
+    n_fact = 1
+    for i in range(1, n + 1):
+        n_fact *= i
+    return n_fact
+
+
 def display_tableau(Alpha, c, x, y):
     # print all constraints
     for row_idx, row in enumerate(Alpha):
@@ -189,7 +202,7 @@ m, n = 3, 2
 # unbounded problem
 A = [[1, -1], [-1, 1]]
 b = [1, 2]
-c = [1]
+c = [1, 0]
 m, n = 2, 2
 '''
 

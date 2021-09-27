@@ -1,4 +1,4 @@
-maximize x1 + 0x2
+max x1 + 0x2
 subject to
 x1 + x2 <= 5
 x1 <= 3

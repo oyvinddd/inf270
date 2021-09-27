@@ -1,0 +1,4 @@
+min -y4 - y5
+subject to
+4y1 + 2y2 + 3y3 + 1y4 >= 2
+8y1 + 1y2 + 2y3 + 1y5 >= 3
