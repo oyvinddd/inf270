@@ -7,7 +7,6 @@
 # assignment 1.1
 def transform(A, b, c, m, n):
     # add slack vars to the end of each row
-    # and increase n with # of slack vars
     for row_idx, row in enumerate(A):
         for idx in range(m):
             if idx == row_idx:
@@ -200,11 +199,19 @@ c = [1, 1]
 m, n = 3, 2
 '''
 
-# bands & coils problem (feasible)
+# feasible problem 3 a)
+A = [[1, 1], [1, 0], [0, 1]]
+b = [5, 3, 4]
+c = [1, 0]
+m, n = 3, 2
+
+'''
+# feasible problem (bands & coils problem)
 A = [[1/200, 1/140], [1, 0], [0, 1]]
 b = [40, 6000, 4000]
 c = [25, 30]
 m, n = 3, 2
+'''
 
 '''
 # unbounded problem

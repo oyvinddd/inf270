@@ -1,4 +1,4 @@
-max y
+max x1
 subject to
--x + y <= 0
-x <= 2
+-x1 + x2 <= 0
+x1 <= 2
