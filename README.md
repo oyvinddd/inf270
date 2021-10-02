@@ -43,3 +43,15 @@ This repository contains exercises and lecture notes for the course INF270.
 
 #### Lecture 9 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%209.pdf)
 * Duality
+
+#### Lecture 10 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2010.pdf)
+* Duality (continued)
+* (P) negative transposed becomes (D)
+* Complementary slackness condition (CSC)
+* Complementary slackness theorem
+
+#### Lecture 11 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2011.pdf)
+* Duality (continued)
+* Dual Simplex method
+* When both (P) and (D) are infeasible
+* Dual-based phase I algorithm
