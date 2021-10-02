@@ -1,0 +1,6 @@
+max x1 + x2
+subject to
+x1 <= 5
+x2 <= 5
+x1 + x2 <= 8
+x2 >= 1
