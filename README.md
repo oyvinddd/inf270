@@ -55,3 +55,11 @@ This repository contains exercises and lecture notes for the course INF270.
 * Dual Simplex method
 * When both (P) and (D) are infeasible
 * Dual-based phase I algorithm
+
+### Notes
+
+#### The Duality Theorem
+
+This will be important for the exam.
+
+![The Duality Theorem](https://github.com/oyvinddd/inf270/blob/main/images/duality-theorem.jpeg)
