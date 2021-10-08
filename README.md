@@ -56,6 +56,11 @@ This repository contains exercises and lecture notes for the course INF270.
 * When both (P) and (D) are infeasible
 * Dual-based phase I algorithm
 
+#### Lecture 12 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2012.pdf)
+* (P)/(D) example (resource allocation problem)
+* Strong duality theorem ("Lagrangian duality")
+* The Simplex method in matrix notation
+
 ### Notes
 
 #### The Duality Theorem
