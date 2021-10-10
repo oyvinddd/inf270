@@ -61,7 +61,7 @@ This repository contains exercises and lecture notes for the course INF270.
 * Strong duality theorem ("Lagrangian duality")
 * The Simplex method in matrix notation
 
-#### Lecture 13 ([link])(https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2013.pdf)
+#### Lecture 13 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2013.pdf)
 * The Simplex method in matrix notation (continued)
 * Complete example
 * Dual problem in matrix form
