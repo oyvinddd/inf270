@@ -66,6 +66,10 @@ This repository contains exercises and lecture notes for the course INF270.
 * Complete example
 * Dual problem in matrix form
 
+#### Lecture 14 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2014.pdf)
+* The Simplex method in matrix notation (continued)
+* Concrete example
+
 ### Notes
 
 #### The Duality Theorem
