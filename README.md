@@ -70,6 +70,11 @@ This repository contains exercises and lecture notes for the course INF270.
 * The Simplex method in matrix notation (continued)
 * Concrete example
 
+#### Lecture 15 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2015.pdf)
+* The Simplex method in matrix notation (continued)
+* Sensitivity analysis
+* Concrete example
+
 ### Notes
 
 #### The Duality Theorem
