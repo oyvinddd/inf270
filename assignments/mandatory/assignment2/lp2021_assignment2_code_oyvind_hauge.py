@@ -6,22 +6,19 @@
 # 1. Dualization
 
 def dualize(A, b, c):
-    # create a temporary matrix containing
-    # all values for A, b and c
-    c.insert(0, 0)
-    temp_matrix = []
-    for index, row in enumerate(A):
-        row.insert(0, b[index])
-        temp_matrix.append(row)
-    temp_matrix.insert(0, c)
-    # initialize an empty transposed matrix
     m, n = len(A), len(A[0])
-    temp_matrix_tr = [[0 for _ in range(n)] for _ in range(m)]
-    # transpose the temporary matrix
+    new_A = [[0 for _ in range(m)] for _ in range(n)]
+    # create negative transposed matrix
     for i in range(m):
         for j in range(n):
-            temp_matrix_tr[j][i] = temp_matrix[i][j]
-    return temp_matrix, temp_matrix_tr
+            new_A[j][i] = A[i][j] * -1
+    # c in (P) is equal to b in (D)
+    # multiply by -1 to put in standard form
+    b_new = [x * -1 for x in c]
+    # b in (P) is equal to c in (D)
+    # multiply by -1 to put in standard form
+    c_new = [x * -1 for x in b]
+    return new_A, b_new, c_new
 
 
 def print_matrix(M):
@@ -29,11 +26,17 @@ def print_matrix(M):
         print(row)
 
 
-A = [[-1, -1], [-1, 1], [1, 2]]
+A = [
+    [-1, -1],
+    [-1,  1],
+    [ 1,  2]
+]
 b = [-3, -1, 2]
 c = [1, 3]
 
-temp, temp_tr = dualize(A, b, c)
-print_matrix(temp)
+A_new, b_new, c_new = dualize(A, b, c)
+print_matrix(A_new)
 print("#######")
-print_matrix(temp_tr)
+print_matrix(b_new)
+print("#######")
+print_matrix(c_new)
