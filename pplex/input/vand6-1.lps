@@ -1,0 +1,5 @@
+maximize -6x1 + 32x2 - 9x3
+subject to
+-2x1 + 10x2 -3x3 <= -6
+x1 - 7x2 + 2x3 <= 4
+
