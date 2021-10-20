@@ -9,7 +9,7 @@
 def dualize(A, b, c):
     m, n = len(A), len(A[0])
     new_A = [[0 for _ in range(m)] for _ in range(n)]
-    # create negative transposed matrix
+    # create negative transposed coefficient matrix
     for i in range(m):
         for j in range(n):
             new_A[j][i] = A[i][j] * -1
