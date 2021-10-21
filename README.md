@@ -75,6 +75,10 @@ This repository contains exercises and lecture notes for the course INF270.
 * Sensitivity analysis
 * Concrete example
 
+#### Lecture 16 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2016.pdf)
+* Sensitivity analysis (continued)
+* The homotopy analysis method
+
 ### Notes
 
 #### The Duality Theorem
