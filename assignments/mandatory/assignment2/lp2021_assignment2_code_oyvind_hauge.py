@@ -43,7 +43,8 @@ def LU_decompose(A):
                     # subtract value in each column with a given
                     # multiplier of the column in the pivot row
                     A[row][col] = A[row][col] - c * A[pivot][col]
-    # in the end, the altered values in A makes up the matrix U
+    # in the end, the altered values in A make up the matrix U.
+    # that is why we just return A instead of creating a new matrix U.
     return L, A
 
 
