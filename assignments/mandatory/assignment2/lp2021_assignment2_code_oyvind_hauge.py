@@ -3,7 +3,6 @@
 ##   PYTHON VERSION: 3.8.5   ##
 ###############################
 
-
 # 1.1 Dualization
 
 def dualize(A, b, c):
@@ -32,8 +31,8 @@ def LU_decompose(A):
     # initialize empty lower triangular matrix
     L = [[0 for _ in range(n)] for _ in range(n)]
     for pivot in range(n):
-        # add the diagonal (pivot) values to L
-        L[pivot][pivot] = A[pivot][pivot]
+        # add the diagonal (pivot) values to L (multiply by the inverse to get only 1's)
+        L[pivot][pivot] = A[pivot][pivot] * 1 / A[pivot][pivot]
         # do row reduction
         for row in range(pivot + 1, n):
             c = A[row][pivot] / A[pivot][pivot]
@@ -65,20 +64,23 @@ def print_matrix(A):
     for row_idx in range(m):
         row_str = ''
         for col_idx in range(m):
-            row_str += '{:8.1f}'.format(A[row_idx][col_idx])
+            row_str += '{:12.2f}'.format(A[row_idx][col_idx])
         print(row_str)
 
 
 # Execute program
 
+# example from the book
 A = [[2, 0, 4, 0, -2], [3, 1, 0, 1, 0], [-1, 0, -1, 0, -2], [0, -1, 0, 0, -6], [0, 0, 1, 0, 4]]
 
-print_matrix(A)
-
-print("      ##################################")
+print("#################################################")
 
 L, U = LU_decompose(A)
 
-print_matrix(A)
-print("      ##################################")
 print_matrix(L)
+
+print("#################################################")
+
+print_matrix(U)
+
+print("#################################################")
