@@ -79,6 +79,11 @@ This repository contains exercises and lecture notes for the course INF270.
 * Sensitivity analysis (continued)
 * The homotopy analysis method
 
+#### Lecture 18 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2018.pdf)
+* LU-factorization
+* Minimum degree ordering heuristic
+* Complete example
+
 ### Notes
 
 #### The Duality Theorem
