@@ -73,15 +73,33 @@ def print_matrix(A):
 
 # example from the book
 A = [[2, 0, 4, 0, -2], [3, 1, 0, 1, 0], [-1, 0, -1, 0, -2], [0, -1, 0, 0, -6], [0, 0, 1, 0, 4]]
+AA = [[1,0],
+     [0,1],
+     [1,1]]
 
+b = [3,4,5]
+
+c = [1,2]
+An, bn, cn = dualize(AA, b, c)
+
+print("A =")
+print(An)
+print("b =")
+print(bn)
+print("c =")
+print(cn)
+'''
 print("#################################################")
 
 L, U = LU_decompose(A)
 
+print("L =")
 print_matrix(L)
 
 print("#################################################")
 
+print("U =")
 print_matrix(U)
 
 print("#################################################")
+'''
