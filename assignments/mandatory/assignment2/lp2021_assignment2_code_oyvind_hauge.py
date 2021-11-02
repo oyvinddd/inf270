@@ -14,11 +14,11 @@ def dualize(A, b, c):
             new_A[j][i] = A[i][j] * -1
     # c in (P) is equal to b in (D)
     # multiply by -1 to put in standard form
-    b_new = [x * -1 for x in c]
+    new_b = [x * -1 for x in c]
     # b in (P) is equal to c in (D)
     # multiply by -1 to put in standard form
     c_new = [x * -1 for x in b]
-    return new_A, b_new, c_new
+    return new_A, new_b, c_new
 
 
 # 1.2 LU-decomposition
@@ -87,3 +87,12 @@ print("U =")
 print_matrix(U)
 
 print("#################################################")
+
+AA = [[-2, -1], [-2, 4], [-1, 3]]
+c = [-1, -1]
+b = [4, -8, -7]
+na, nb, nc = dualize(AA, b, c)
+
+print(na)
+print(nb)
+print(nc)
