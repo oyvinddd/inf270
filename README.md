@@ -84,6 +84,10 @@ This repository contains exercises and lecture notes for the course INF270.
 * Minimum degree ordering heuristic
 * Complete example
 
+#### Lecture 19 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2019.pdf)
+* Network flow problem
+* Spanning trees and bases
+
 ### Notes
 
 #### The Duality Theorem
