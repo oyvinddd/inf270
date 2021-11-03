@@ -1,0 +1,5 @@
+maximize 2x1 - 7x2
+subject to
+2x1 -x2 <= 1
+-x1 + x2 <= 1
+3x1 + 3x2 <= 8
