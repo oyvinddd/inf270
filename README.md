@@ -88,6 +88,17 @@ This repository contains exercises and lecture notes for the course INF270.
 * Network flow problem
 * Spanning trees and bases
 
+#### Lecture 20 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2020.pdf)
+* Network flow problem (continued)
+* Basis matrix theorem
+* Dual solution of a network flow problem
+
+#### Lecture 21 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2021.pdf)
+* Network flow problem (continued)
+* Complete example
+* SM for network flow problems
+* Pivot step in the network flow SM 
+
 ### Notes
 
 #### The Duality Theorem
