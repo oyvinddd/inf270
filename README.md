@@ -99,6 +99,11 @@ This repository contains exercises and lecture notes for the course INF270.
 * SM for network flow problems
 * Pivot step in the network flow SM 
 
+#### Lecture 22 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2022.pdf)
+* Dual network Simplex method
+* Integrality theorem
+* Interior point methods
+
 ### Notes
 
 #### The Duality Theorem
