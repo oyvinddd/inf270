@@ -104,6 +104,13 @@ This repository contains exercises and lecture notes for the course INF270.
 * Integrality theorem
 * Interior point methods
 
+#### Lecture 23 [(link)](https://github.com/oyvinddd/inf270/blob/main/lectures/Lecture%2023.pdf)
+* Interior point methods (continued)
+* Barrier function
+* Non-linear programming (NLP)
+* Kanish-Kuhn-Tucker system (KKT)
+* Lagrange multiplier
+
 ### Notes
 
 #### The Duality Theorem
