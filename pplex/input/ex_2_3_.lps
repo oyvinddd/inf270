@@ -1,0 +1,4 @@
+maximize 2x1 - 6x2
+subject to
+-x1 - x2 <= -2
+2x1 - x2 <= 1
